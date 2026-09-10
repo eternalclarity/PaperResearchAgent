@@ -1,0 +1,8 @@
+# Hello-Agents 教材稳定学习版本
+hello-agents==0.2.9
+
+# 调用 OpenAlex REST API
+requests>=2.31.0,<3.0.0
+
+# 从 .env 文件读取模型/API 配置
+python-dotenv>=1.0.1,<2.0.0
