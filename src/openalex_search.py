@@ -13,7 +13,7 @@ from typing import Any
 import requests
 
 # 导入统一的论文数据结构
-from models import Paper
+from .models import Paper
 
 
 class OpenAlexSearcher:
