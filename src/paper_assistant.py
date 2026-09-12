@@ -370,7 +370,7 @@ class PaperResearchAssistant:
         content_type: str,
         generated_content: str,
         cited_papers: list[Paper],
-    ) -> str:
+    ) -> (str, str):
         """生成最终 Markdown 报告"""
 
         # 只根据真正引用到的论文建立连续数字编号
@@ -383,7 +383,7 @@ class PaperResearchAssistant:
         references = build_reference_list(cited_papers)
 
         # 拼成完整 Markdown
-        return f"""# PaperResearchAgent 生成报告
+        return (f"""# PaperResearchAgent 生成报告
 
 ## 研究主题
 
@@ -408,7 +408,15 @@ class PaperResearchAssistant:
 ## 参考文献
 
 {references}
-"""
+""",
+    f"""{final_content}
+
+---
+
+## 参考文献
+
+{references}
+""")
 
     def _save_outputs(
         self,
@@ -510,7 +518,7 @@ class PaperResearchAssistant:
 
         # Step 4：统一编号并保存最终文件
         print("\n[Step 4/4] 正在生成参考文献并保存结果...")
-        report = self._build_report(
+        report, cmdport = self._build_report(
             topic=topic,
             search_query=search_query,
             content_type=content_type,
@@ -527,5 +535,4 @@ class PaperResearchAssistant:
             cited_papers=cited_papers,
         )
 
-        # 返回完整报告，main.py 可以继续打印
-        return report
+        return cmdport
